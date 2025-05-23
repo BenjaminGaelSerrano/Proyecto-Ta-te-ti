@@ -1,4 +1,11 @@
 import cv2
+import os
+
+# Ruta personalizada (puedes cambiarla)
+ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/piloto.jpg"
+
+# Asegúrate de que la carpeta exista
+os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Intenta abrir la cámara (0 es el índice de la primera cámara)
 cap = cv2.VideoCapture(0)
@@ -17,6 +24,11 @@ while True:
 
     cv2.imshow('Webcam', frame)  # Muestra el frame en una ventana
 
+    if cv2.waitKey(1) & 0xFF == ord('f'):
+        cv2.imwrite(ruta_guardado, frame)
+        print(f"Foto guardada en: {ruta_guardado}")
+    
+    
     # Salir si se presiona la tecla 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
