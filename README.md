@@ -1,1 +1,1 @@
-# Proyecto-Ta-te-ti
+# Proyecto-Ta-te-ti hoy 6/6 se avanzo en archivois separados y se dieron los primeros pasos en la beta de el proyecto, integrando el juego del tateti que funciona con la pestaña de opencv con su camara, proxima calse, con pyserial generar un evento que saque una foto a ser analizada 
