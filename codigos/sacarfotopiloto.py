@@ -8,7 +8,7 @@ ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/p
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir la cámara
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 if not cap.isOpened():
     print("No se pudo abrir la cámara")
