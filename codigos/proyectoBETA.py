@@ -170,7 +170,8 @@ while ejecutando:
                 else:
                     player *= -1  # Cambiar de turno
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        ejecutando = False                
+        ejecutando = False
+                  
 
     pygame.display.flip()
 cam.release()
