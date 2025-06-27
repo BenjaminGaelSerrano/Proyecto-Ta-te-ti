@@ -4,18 +4,17 @@ import numpy as np
 import time
 
 # ---- Inicialización ----
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("No se pudo abrir la cámara.")
-    exit()
+    exit()   
 
 pygame.init()
-W, H = 640, 480
+W, H = 580, 640
 screen = pygame.display.set_mode((W, H))
 pygame.display.set_caption("Ta-Te-Ti con detección de color (foto)")
 clock = pygame.time.Clock()
 
-# ---- Colores y tablero ----
 WHITE, RED, BLUE = (255, 255, 255), (255, 0, 0), (0, 0, 255)
 LINE, LW = (0, 255, 0), 4
 board = [["" for _ in range(3)] for _ in range(3)]
@@ -24,7 +23,11 @@ cell_w, cell_h = W // 3, H // 3
 
 analyze_frame = None
 analyze_start_time = 0
-analyze_duration = 2  # segundos para mostrar la foto antes de analizar
+analyze_duration = 0
+
+# Para detección de movimiento
+prev_gray = None
+motion_threshold = 30000  # Ajustable: sensibilidad al movimiento
 
 def draw_board():
     for i in range(1, 3):
@@ -55,10 +58,24 @@ def detectar_color(frame, lower, upper):
 
 def mostrar_imagen(frame, screen, W, H):
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame_rgb = cv2.flip(frame_rgb, 1)
+    frame_rgb = cv2.rotate(frame_rgb, cv2.ROTATE_90_COUNTERCLOCKWISE)
     frame_rgb = cv2.resize(frame_rgb, (W, H))
     surface = pygame.surfarray.make_surface(frame_rgb)
     screen.blit(surface, (0, 0))
+
+def check_ganador():
+    for i in range(3):
+        if board[i][0] != "" and board[i][0] == board[i][1] == board[i][2]:
+            y = i * cell_h + cell_h // 2
+            return board[i][0], ((0, y), (W, y))
+        if board[0][i] != "" and board[0][i] == board[1][i] == board[2][i]:
+            x = i * cell_w + cell_w // 2
+            return board[0][i], ((x, 0), (x, H))
+    if board[0][0] != "" and board[0][0] == board[1][1] == board[2][2]:
+        return board[0][0], ((0, 0), (W, H))
+    if board[0][2] != "" and board[0][2] == board[1][1] == board[2][0]:
+        return board[0][2], ((W, 0), (0, H))
+    return None, None
 
 lower_red1 = np.array([0, 70, 70])
 upper_red1 = np.array([10, 255, 255])
@@ -71,23 +88,32 @@ while running:
     if not ok:
         continue
 
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    ganador, linea = check_ganador()
+
+    # Solo analiza cuando no hay ganador
     if analyze_frame is None:
+        # Mostrar imagen de cámara
         mostrar_imagen(frame, screen, W, H)
 
-        pos1 = detectar_color(frame, lower_red1, upper_red1)
-        pos2 = detectar_color(frame, lower_red2, upper_red2)
-        pos = pos1 if pos1 else pos2
+        # Detectar movimiento entre frames
+        if prev_gray is not None:
+            diff = cv2.absdiff(prev_gray, gray)
+            _, thresh = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
+            motion_level = cv2.countNonZero(thresh)
 
-        if pos:
-            print("Color detectado, sacando foto para analizar...")
-            analyze_frame = frame.copy()
-            analyze_start_time = time.time()
+            if motion_level > motion_threshold and not ganador:
+                print("Movimiento detectado, sacando foto para analizar...")
+                analyze_frame = frame.copy()
+                analyze_start_time = time.time()
+
+        prev_gray = gray.copy()
+
     else:
-        # Mostrar la foto sacada
         mostrar_imagen(analyze_frame, screen, W, H)
         elapsed = time.time() - analyze_start_time
 
-        if elapsed >= analyze_duration:
+        if elapsed >= analyze_duration and not ganador:
             print("Analizando foto...")
             pos1 = detectar_color(analyze_frame, lower_red1, upper_red1)
             pos2 = detectar_color(analyze_frame, lower_red2, upper_red2)
@@ -98,7 +124,6 @@ while running:
                 x = W - x
                 col, row = x * 3 // W, y * 3 // H
                 print(f"Jugada detectada en fila {row}, columna {col}")
-
                 if 0 <= row < 3 and 0 <= col < 3 and board[row][col] == "":
                     board[row][col] = turn
                     turn = "O" if turn == "X" else "X"
@@ -106,6 +131,12 @@ while running:
                 print("No se detectó color en la foto.")
 
             analyze_frame = None
+
+    if linea:
+        pygame.draw.line(screen, (255, 255, 0), linea[0], linea[1], 6)
+        font = pygame.font.SysFont(None, 60)
+        texto = font.render("¡GANASTE!", True, (255, 255, 0))
+        screen.blit(texto, (W//2 - texto.get_width()//2, H//2 - texto.get_height()//2))
 
     draw_board()
     pygame.display.flip()
