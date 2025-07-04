@@ -3,13 +3,13 @@ import cv2
 import os
 
 # Ruta personalizada (puedes cambiarla)
-ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/pygamefoto.jpg"
+ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/pygamefoto1.jpg"
 
 # Asegúrate de que la carpeta exista
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir la cámara
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 if not cap.isOpened():
     print("No se pudo abrir la cámara.")
     exit()   
