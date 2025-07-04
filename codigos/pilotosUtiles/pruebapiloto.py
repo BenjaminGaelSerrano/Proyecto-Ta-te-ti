@@ -2,13 +2,13 @@ import cv2
 import os
 
 # Ruta personalizada (puedes cambiarla)
-ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/piloto.jpg"
+ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/ppiloto4.jpg"
 
 # Asegúrate de que la carpeta exista
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Intenta abrir la cámara (0 es el índice de la primera cámara)
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # Verifica que la cámara se haya abierto correctamente
 if not cap.isOpened():

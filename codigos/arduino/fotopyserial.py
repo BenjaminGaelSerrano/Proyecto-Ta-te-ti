@@ -1,7 +1,7 @@
 import serial
 import cv2
 import os
-
+import time 
 # Ruta personalizada (puedes cambiarla)
 ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/pygamefoto1.jpg"
 
@@ -9,7 +9,7 @@ ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/pyg
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir la cámara
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("No se pudo abrir la cámara.")
     exit()   
@@ -29,13 +29,14 @@ print("Escuchando datos del Arduino...")
 try:
     while True:
         # Lee una línea del puerto serial
-        linea = ser.readline().decode('utf-8').strip()
-        if linea:
-            ret, frame = cap.read()
-            print(f"Arduino dice: {linea}")
+        ret, frame = cap.read()
+        if ser.in_waiting>0:
+            linea = ser.readline().decode('utf-8').strip()
+            
+            print(f"Arduino dice:{linea}")
             if ret:
                 cv2.imwrite(ruta_guardado, frame)
-                print(f"Foto guardada en: {ruta_guardado}")
+                print(f"Foto guardada en: {ruta_guardado}") 
             else:
                 print("No se pudo capturar la imagen")
             

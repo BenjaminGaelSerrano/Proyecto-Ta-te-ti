@@ -1,7 +1,7 @@
 import cv2, pygame, numpy as np, sys
 
 # ---- Inicialización ----
-cap = cv2.VideoCapture(1, cv2.CAP_V4L2)  # fuerza backend v4l2 (Linux)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L2)  # fuerza backend v4l2 (Linux)
 if not cap.isOpened():
     print("No se pudo abrir la cámara. ¿Está en uso o sin permisos?")
     sys.exit(1)                           # aborta solo si la cámara no existe
