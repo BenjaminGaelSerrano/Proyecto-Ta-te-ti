@@ -4,10 +4,10 @@ import os
 import time
 
 
-from analIsis import detectar_rojo_en_imagen
+from analisisreturn import detectar_rojo_en_imagen
 
 # Ruta personalizada
-ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/bocaboton.jpg"
+ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/bocaboton22_8.jpg"
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir cámara
@@ -32,9 +32,10 @@ try:
             if ret:
                 cv2.imwrite(ruta_guardado, frame)
                 print(f"📸 Foto guardada en: {ruta_guardado}")
-                detectar_rojo_en_imagen(ruta_guardado)
+                casilla = detectar_rojo_en_imagen(ruta_guardado) #en el array casilla tenemos[fila, columna]
+                #funcion_dibujar(casilla)
             else:
-                print("❌ No se pudo capturar la imagen"      )
+                print("❌ No se pudo capturar la imagen")
                 
 except KeyboardInterrupt:
     print("Programa terminado por el usuario.")

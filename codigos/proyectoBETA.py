@@ -162,7 +162,6 @@ while ejecutando:
                 else:
                     circulos[(fila, col)] = rect.center
                     estado_tablero[fila][col] = -1
-
                 # Verificamos si alguien ganó
                 resultado = verificar_victoria(estado_tablero)
                 if resultado:

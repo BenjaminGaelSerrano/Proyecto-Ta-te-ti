@@ -1,0 +1,4 @@
+problemas que hubo a lo largodel proyecto: intentar hacer todas las funcionalidadaes dentro de un solo archivo resulto una locura
+, codigo desprolijo y mucho mas complicado de procesar, ordenarlo por archivoscon sus respectivas funciones 
+otra complicacion es el color se va a detectar, las mascaras y los rangos son complicados de poner  a lo largo de las fases mas iniciales del proyecto 
+mas problemas para abrir la camara muchas veces
