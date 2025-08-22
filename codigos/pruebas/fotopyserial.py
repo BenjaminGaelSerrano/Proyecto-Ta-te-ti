@@ -7,7 +7,7 @@ import time
 from analIsis import detectar_rojo_en_imagen
 
 # Ruta personalizada
-ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/pygamefoto1.jpg"
+ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/piloto.jpg"
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir cámara

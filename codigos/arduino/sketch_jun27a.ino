@@ -33,8 +33,8 @@ void loop() {
 
     // Verificar si está a menos de 1 metro (100 cm)
     if (distance <= 50) {
-      Serial.println("que ganas de comer un vigilante");
-      delay(1000);
+      Serial.println("x");
+      delay(3000);
     }
 
     // Pequeño retardo para estabilidad    delay();

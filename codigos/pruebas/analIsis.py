@@ -47,4 +47,4 @@ def detectar_rojo_en_imagen(ruta_imagen):
                 if (fila, columna) not in celdas_detectadas:
                     celdas_detectadas.add((fila, columna))
                     print(f"🟥 Rojo detectado en fila {fila}, columna {columna}")
-detectar_rojo_en_imagen("imagenes/piloto.jpg")
+
