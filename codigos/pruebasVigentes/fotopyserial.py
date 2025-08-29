@@ -4,10 +4,10 @@ import os
 import time
 
 
-from analIsis import detectar_rojo_en_imagen
+from analisisreturn import detectar_rojo_en_imagen
+from x_o_0 import jugar
 
 # Ruta personalizada
-ruta_guardado = "/home/ta-te-ti/Escritorio/Tateti/Proyecto-Ta-te-ti/imagenes/piloto.jpg"
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir cámara
@@ -29,16 +29,14 @@ try:
         if ser.in_waiting > 0:
             linea = ser.readline().decode('utf-8').strip()
             print(f"Arduino dice: {linea}")
-
             if ret:
                 cv2.imwrite(ruta_guardado, frame)
                 print(f"📸 Foto guardada en: {ruta_guardado}")
-
-               
-                detectar_rojo_en_imagen(ruta_guardado)
+                casilla = detectar_rojo_en_imagen(ruta_guardado)
+                jugar(linea,casilla)
             else:
                 print("❌ No se pudo capturar la imagen")
-
+                
 except KeyboardInterrupt:
     print("Programa terminado por el usuario.")
 finally:

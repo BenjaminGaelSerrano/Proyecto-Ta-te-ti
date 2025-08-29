@@ -18,11 +18,19 @@ def detectar_rojo_en_imagen(ruta_imagen):
     #rojo_bajo2 = np.array([160, 100, 100])
     #rojo_alto2 = np.array([180, 255, 255])
 
-    rojo_bajo1 = np.array([0, 200, 200])
-    rojo_alto1 = np.array([10, 255, 255])
+    #rojo_bajo1 = np.array([0, 200, 200])
+    #rojo_alto1 = np.array([10, 255, 255])
 
-    rojo_bajo2 = np.array([170, 200, 200])
-    rojo_alto2 = np.array([179, 255, 255])
+    #rojo_bajo2 = np.array([170, 200, 200])
+    #rojo_alto2 = np.array([179, 255, 255])
+
+    # Rango bajo (rojos "claros")
+    rojo_bajo1 = np.array([0, 100, 100])     # H, S, V mínimos
+    rojo_alto1 = np.array([10, 255, 255])    # H, S, V máximos
+
+    # Rango alto (rojos "oscuros" cercanos a 180°)
+    rojo_bajo2 = np.array([170, 100, 100])
+    rojo_alto2 = np.array([180, 255, 255])
 
 
 
@@ -47,4 +55,4 @@ def detectar_rojo_en_imagen(ruta_imagen):
                 if (fila, columna) not in celdas_detectadas:
                     celdas_detectadas.add((fila, columna))
                     print(f"🟥 Rojo detectado en fila {fila}, columna {columna}")
-
+detectar_rojo_en_imagen("/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/canchero.jpg")
