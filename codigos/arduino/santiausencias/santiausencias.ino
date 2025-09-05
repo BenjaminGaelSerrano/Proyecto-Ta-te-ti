@@ -1,12 +1,11 @@
-// Pines del PIR
-const int pirPin = 7;
+
 
 // Pines del HC-SR04
-const int trigPin = 9;
+const int trigPin = 11;
 const int echoPin = 10;
 
 void setup() {
-  pinMode(pirPin, INPUT);
+  
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   Serial.begin(9600);
@@ -37,7 +36,6 @@ void loop() {
       delay(3000);
     }
 
-    // Pequeño retardo para estabilidad    delay();
   
 
   delay(10);

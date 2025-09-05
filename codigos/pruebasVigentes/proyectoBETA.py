@@ -173,6 +173,6 @@ while ejecutando:
 
 
     pygame.display.flip()
-cam.release()
+cap.release()
 cv2.destroyAllWindows()
 pygame.quit()

@@ -39,10 +39,3 @@ def detectar_rojo_en_imagen(ruta_imagen):
 
     return None  # Si no se detecta nada
 
-
-# Ejemplo de uso
-casilla = detectar_rojo_en_imagen("/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/canchero.jpg")
-if casilla:
-    print(f"🟥 Rojo detectado en fila {casilla[0]}, columna {casilla[1]}")
-else:
-    print("❌ No se detectó rojo")
