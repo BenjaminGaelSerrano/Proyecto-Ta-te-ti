@@ -3,8 +3,7 @@ import cv2
 import os
 
 # Ruta personalizada (puedes cambiarla)
-ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/piloto2.jpg"
-
+ruta_guardado = "/home/Alumno26.ORTIZ.Santiago@ipm.edu.ar/Escritorio/proyecto/venv/Proyecto-Ta-te-ti/imagenes/bocaboton22_8.jpg"
 # Asegúrate de que la carpeta exista
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 

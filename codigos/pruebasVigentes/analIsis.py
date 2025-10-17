@@ -51,8 +51,8 @@ def detectar_rojo_en_imagen(ruta_imagen):
                 cy = int(M["m01"] / M["m00"])
                 columna = cx // tercio_ancho
                 fila = cy // tercio_alto
-
                 if (fila, columna) not in celdas_detectadas:
                     celdas_detectadas.add((fila, columna))
                     print(f"🟥 Rojo detectado en fila {fila}, columna {columna}")
-detectar_rojo_en_imagen("/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/canchero.jpg")
+#esta ruta esta mal
+#detectar_rojo_en_imagen("/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/canchero.jpg")

@@ -51,7 +51,7 @@ def colocar_pieza(fila, columna):
     dibujar_tablero()  # Actualizar pantalla cuando se coloque pieza
 
 # TU CÓDIGO ORIGINAL - solo con correcciones mínimas
-ruta_guardado = "/home/ta-te-ti/Escritorio/proyecto/Proyecto-Ta-te-ti/imagenes/bocaboton22_8.jpg"
+ruta_guardado = "/home/Alumno26.ORTIZ.Santiago@ipm.edu.ar/Escritorio/proyecto/venv/Proyecto-Ta-te-ti/imagenes/bocaboton17_10.jpg"
 os.makedirs(os.path.dirname(ruta_guardado), exist_ok=True)
 
 # Abrir cámara
@@ -85,8 +85,22 @@ try:
             print(f"Arduino dice: {linea}")
             
             if ret:
-                cv2.imwrite(ruta_guardado, frame)
-                print(f"📸 Foto guardada en: {ruta_guardado}")
+                # APLICAR ZOOM (ajusta el factor según necesites)
+                alto, ancho = frame.shape[:2]
+                factor = 0.3  # Ajusta el factor de zoom según necesites:
+                # 1.0 = sin zoom | 0.7 = suave | 0.5 = 2x | 0.3 = 3x 
+                
+                nuevo_ancho = int(ancho * factor)
+                nuevo_alto = int(alto * factor)
+                
+                x_inicio = (ancho - nuevo_ancho) // 2
+                y_inicio = (alto - nuevo_alto) // 2
+                
+                frame_recortado = frame[y_inicio:y_inicio+nuevo_alto, 
+                                        x_inicio:x_inicio+nuevo_ancho]
+                
+                cv2.imwrite(ruta_guardado, frame_recortado)
+                print(f"📸 Foto guardada (con zoom) en: {ruta_guardado}")
                 casilla = detectar_rojo_en_imagen(ruta_guardado)
                 
                 # CORRECCIÓN 1: Cambiar != "nada" por is not None
